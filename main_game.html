@@ -103,6 +103,9 @@
           <li class="nav-item">
             <a class="nav-link" href="about_us.html">About Us</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Don't Click</a>
+          </li>
         </ul>
       </div>
     </nav>
@@ -130,6 +133,12 @@
                   <span class="price">50</span>
                 </button>
               </li>
+              <li>
+              <button id="double-points"> 
+                Multiplier
+                <span class="price"><br>10</span> 
+              </button>
+              </li> 
               <li>
                 <button id="lucky-score">
                   Daftar Nyaleg (20% chance bisa dobel skor)
@@ -167,18 +176,36 @@
             }
           },
         },
-        {
-          id: "passive-click",
-          name: "Klik Otomatis",
-          price: 50,
-          duration: null,
-          action: function () {
-            autoClickInterval = setInterval(function () {
-              score += 1;
-              updateScore();
-            }, 1000);
-          },
+        { 
+          id: 'passive-click', 
+          name: 'Passive Click', 
+          price: 50, 
+          duration: null, 
+          action: function () { 
+            autoClickInterval = setInterval(function () { 
+              score += clickPower; 
+              updateScore(); 
+            }, 1000); 
+          }, 
         },
+        {
+          id: 'double-points',
+          name: 'Double Points',
+          price: 10,
+          duration: Infinity,
+          action: function () {
+          if (doublePointsInterval !== null) {
+            clearInterval(doublePointsInterval);
+          }
+          doublePointsInterval = setInterval(function () {
+          score += clickPower * 2;
+          updateScore();
+          }, 1000);
+          setTimeout(function () {
+          clearInterval(doublePointsInterval);
+          }, this.duration);
+        },
+      },
         {
           id: "lucky-score",
           name: "Lucky Score",
@@ -212,10 +239,28 @@
       }
       function updateScore() {
         document.getElementById("score").textContent = score;
+        if (score >= 10000) {
+          showNotificationWithLink();
+        }
       }
       function updateLevel() {
         document.getElementById("level").textContent = "Level: " + level;
       }
+      function showNotificationWithLink() {
+        var notification = document.createElement("div");
+        notification.innerHTML = 'Selamat! Anda mencapai skor 10.000. <a href="https://www.youtube.com/watch?v=C2V4zGH6xt8" target="_blank">Klik disini untuk melihat hadiah</a>';
+        notification.style.position = "fixed";
+        notification.style.top = "20px";
+        notification.style.right = "20px";
+        notification.style.padding = "10px";
+        notification.style.backgroundColor = "#4CAF50";
+        notification.style.color = "white";
+        notification.style.borderRadius = "5px";
+          document.body.appendChild(notification);
+          setTimeout(function () {
+          document.body.removeChild(notification);
+          }, 1000);
+        }
       function notifyPlayer(message) {
         var notification = document.createElement("div");
         notification.textContent = message;
@@ -246,8 +291,13 @@
           }
           item.action();
           updateScore();
-        } else {
+            } else {
           notifyPlayer("Tidak cukup skor untuk membeli " + item.name);
+          }
+        if (id === 'double-points') {
+          notifyPlayer('Poin dobel: ' + item.name + ' Point Aktif.');
+          } else {
+          notifyPlayer('Kamu berhasil membeli ' + item.name);
         }
       }
       function resetGame() {
@@ -266,7 +316,7 @@
         store[1].price = 50;
         document.getElementById("passive-click").disabled = false;
         document
-          .getElementById("passive-click")
+            .getElementById("passive-click")
           .getElementsByClassName("price")[0].textContent = store[1].price;
         document.getElementById("char").style.backgroundImage =
           'url("char.gif")';
