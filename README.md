@@ -9,7 +9,7 @@ level 1: 1 poin/click
 level 2: 4 poin/click
 level 3: 10 poin/click
 
-Ada autoclicker 1 click/detik
+Ada autoclicker 1 click/detik dan bisa diupgrade +1 click/detik
 
 Ada gambling gacha 20% kemungkinan semua poin jadi ganda, sisanya zonk poin hilang
 
