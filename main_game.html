@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Idle Clicker Game</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+    <style>
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+      }
+
+      #char {
+        width: 200px;
+        height: 200px;
+        margin: auto auto;
+        margin-top: 150px;
+        background: url("char.gif") no-repeat center center;
+        background-size: contain;
+        cursor: pointer;
+        transition: transform 0.2s;
+      }
+
+      #char.clicked {
+        transform: scale(0.8);
+      }
+
+      #score {
+        text-align: center;
+        font-size: 3em;
+      }
+
+      #level {
+        text-align: center;
+        font-size: 2em;
+      }
+
+      #store {
+        background-color: #f5f5f5;
+        padding: 10px;
+      }
+
+      #powerup-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      #powerup-list li {
+        margin-bottom: 10px;
+      }
+
+      #powerup-list button {
+        display: block;
+        width: 100%;
+        padding: 5px;
+        border: none;
+        background-color: #3498db;
+        color: white;
+        cursor: pointer;
+        font-size: 1.2em;
+      }
+
+      #powerup-list button:disabled {
+        background-color: #bdc3c7;
+        cursor: default;
+      }
+
+      #reset-button {
+        display: block;
+        margin: 200px auto;
+        padding: 5px;
+        border: none;
+        background-color: #3498db;
+        color: white;
+        cursor: pointer;
+        font-size: 1.2em;
+      }
+    </style>
+  </head>
+
+  <body>
+    <nav class="navbar navbar-expand-md navbar-dark bg-primary">
+      <a class="navbar-brand" href="#">Idle Clicker Game</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle
+        navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="main_game.html">Main Game</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="about_us.html">About Us</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <div class="container">
+      <div class="row">
+        <div class="col-12 col-md-8">
+          <div id="char"></div>
+          <div id="score">0</div>
+          <div id="level">Level: 1</div>
+          <button id="reset-button">Cairkan skor menjadi GoPay</button>
+        </div>
+        <div class="col-12 col-md-4">
+          <div id="store">
+            <h2>Store</h2>
+            <ul id="powerup-list">
+              <li>
+                <button id="double-point">
+                  Naik Level
+                  <span class="price">100</span>
+                </button>
+              </li>
+              <li>
+                <button id="passive-click">
+                  Klik Otomatis
+                  <span class="price">50</span>
+                </button>
+              </li>
+              <li>
+                <button id="lucky-score">
+                  Daftar Nyaleg (20% chance bisa dobel skor)
+                  <span class="price"><br /><br />Semua skor</span>
+                </button>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      var score = 0;
+      var level = 1;
+      var clickPower = 1;
+      var autoClickInterval = null;
+      var doublePointsInterval = null;
+      var store = [
+        {
+          id: "double-point",
+          name: "Naik Level",
+          price: 100,
+          duration: null,
+          action: function () {
+            clickPower = clickPower * 2;
+            levelUp();
+            if (this.price === 100) {
+              this.price = 1000;
+            } else if (this.price === 1000) {
+              this.price = null;
+              document.getElementById("double-point").disabled = true;
+              document
+                .getElementById("double-point")
+                .getElementsByClassName("price")[0].textContent = "Sold Out";
+            }
+          },
+        },
+        {
+          id: "passive-click",
+          name: "Klik Otomatis",
+          price: 50,
+          duration: null,
+          action: function () {
+            autoClickInterval = setInterval(function () {
+              score += 1;
+              updateScore();
+            }, 1000);
+          },
+        },
+        {
+          id: "lucky-score",
+          name: "Lucky Score",
+          price: null,
+          duration: null,
+          action: function () {
+            var chance = Math.random();
+            if (chance <= 0.2) {
+              score = score * 2;
+            } else {
+              score = 0;
+            }
+            updateScore();
+          },
+        },
+      ];
+      function levelUp() {
+        level++;
+        updateLevel();
+        if (level === 2) {
+          document.getElementById("char").style.backgroundImage =
+            'url("char2.gif")';
+        } else if (level === 3) {
+          document.getElementById("char").style.backgroundImage =
+            'url("char3.gif")';
+          document.getElementById("double-point").disabled = true;
+          document
+            .getElementById("double-point")
+            .getElementsByClassName("price")[0].textContent = "Sold Out";
+        }
+      }
+      function updateScore() {
+        document.getElementById("score").textContent = score;
+      }
+      function updateLevel() {
+        document.getElementById("level").textContent = "Level: " + level;
+      }
+      function notifyPlayer(message) {
+        var notification = document.createElement("div");
+        notification.textContent = message;
+        notification.style.position = "fixed";
+        notification.style.top = "20px";
+        notification.style.right = "20px";
+        notification.style.padding = "10px";
+        notification.style.backgroundColor = "#f44336";
+        notification.style.color = "white";
+        notification.style.borderRadius = "5px";
+        document.body.appendChild(notification);
+        setTimeout(function () {
+          document.body.removeChild(notification);
+        }, 3000);
+      }
+      function buyPowerup(id) {
+        var item = store.find(function (item) {
+          return item.id === id;
+        });
+        if (item.price === null || score >= item.price) {
+          if (item.price !== null) {
+            score -= item.price;
+            clickPower++;
+            item.price *= 2;
+            document
+              .getElementById(id)
+              .getElementsByClassName("price")[0].textContent = item.price;
+          }
+          item.action();
+          updateScore();
+        } else {
+          notifyPlayer("Tidak cukup skor untuk membeli " + item.name);
+        }
+      }
+      function resetGame() {
+        score = 0;
+        level = 1;
+        clickPower = 1;
+        if (autoClickInterval) {
+          clearInterval(autoClickInterval);
+          autoClickInterval = null;
+        }
+        store[0].price = 100;
+        document.getElementById("double-point").disabled = false;
+        document
+          .getElementById("double-point")
+          .getElementsByClassName("price")[0].textContent = store[0].price;
+        store[1].price = 50;
+        document.getElementById("passive-click").disabled = false;
+        document
+          .getElementById("passive-click")
+          .getElementsByClassName("price")[0].textContent = store[1].price;
+        document.getElementById("char").style.backgroundImage =
+          'url("char.gif")';
+        updateScore();
+        updateLevel();
+      }
+      document
+        .getElementById("reset-button")
+        .addEventListener("click", function () {
+          resetGame();
+        });
+      document.getElementById("char").addEventListener("click", function () {
+        score += clickPower;
+        updateScore();
+        this.classList.add("clicked");
+        setTimeout(function () {
+          document.getElementById("char").classList.remove("clicked");
+        }, 200);
+      });
+      document
+        .getElementById("reset-button")
+        .addEventListener("click", function () {
+          resetGame();
+        });
+      store.forEach(function (item) {
+        var button = document.getElementById(item.id);
+        button.addEventListener("click", function () {
+          buyPowerup(item.id);
+        });
+      });
+    </script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  </body>
+</html>
