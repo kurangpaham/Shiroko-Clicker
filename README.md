@@ -1,5 +1,8 @@
 # Shiroko-Clicker
 
+Main_Game
+=
+
 Ada 3 level
 
 level 1: 1 poin/click
@@ -12,7 +15,7 @@ Ada gambling gacha 20% kemungkinan semua poin jadi ganda, sisanya zonk poin hila
 
 Tombol cairkan menjadi GoPay adalah tombol reset poin dan upgrade
 
-About Us
+About_Us
 =
 
 Ada tombol Follow yang bertujuan langsung ke halaman Instagram kami
