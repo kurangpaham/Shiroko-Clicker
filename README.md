@@ -11,6 +11,8 @@ level 3: 10 poin/click
 
 Ada autoclicker 1 click/detik dan bisa diupgrade +1 click/detik
 
+ada Multiplier fungsinya untuk menambah penghasilan perclick serta auto clickernya
+
 Ada gambling gacha 20% kemungkinan semua poin jadi ganda, sisanya zonk poin hilang
 
 Tombol "cairkan poin menjadi GoPay" adalah tombol reset poin dan upgrade
