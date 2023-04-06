@@ -13,7 +13,7 @@ Ada autoclicker 1 click/detik
 
 Ada gambling gacha 20% kemungkinan semua poin jadi ganda, sisanya zonk poin hilang
 
-Tombol cairkan menjadi GoPay adalah tombol reset poin dan upgrade
+Tombol "cairkan poin menjadi GoPay" adalah tombol reset poin dan upgrade
 
 About_Us
 =
