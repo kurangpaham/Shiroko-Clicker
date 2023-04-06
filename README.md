@@ -12,7 +12,6 @@ Ada gambling gacha 20% kemungkinan semua poin jadi ganda, sisanya zonk poin hila
 
 Tombol cairkan menjadi GoPay adalah tombol reset poin dan upgrade
 
-============
 About Us
 =
 
