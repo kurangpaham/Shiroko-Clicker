@@ -20,4 +20,4 @@ About_Us
 
 Ada tombol Follow yang bertujuan langsung ke halaman Instagram kami
 
-pls follow uwu
+pls follow uwu <- (disuruh tambahin sama aziz)
