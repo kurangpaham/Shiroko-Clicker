@@ -14,6 +14,7 @@ Tombol cairkan menjadi GoPay adalah tombol reset poin dan upgrade
 
 ============
 About Us
+=
 
 Ada tombol Follow yang bertujuan langsung ke halaman Instagram kami
 
