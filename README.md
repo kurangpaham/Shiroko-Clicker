@@ -1,5 +1,7 @@
 # Shiroko-Clicker
 
+https://github.com/kurangpaham/Shiroko-Clicker.git
+
 Main_Game
 =
 
