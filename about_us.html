@@ -11,6 +11,7 @@
       margin: 0;
       font-family: Arial, sans-serif;
       background: url("Kivotos_1.webp");
+      backdrop-filter: blur(8px);
     }
 
     #about-content {
@@ -29,12 +30,21 @@
     #contact {
       margin-top: 20px;
     }
+
+    #ref {
+      margin-top: 20px;
+      margin-left: 20px;
+    }
+
+    #ref li {
+      list-style: none;
+    }
   </style>
 </head>
 
 <body>
   <nav class="navbar navbar-expand-md navbar-dark bg-primary">
-    <a class="navbar-brand" href="#">Idle Clicker Game</a>
+    <a class="navbar-brand" href="main_game.html">Idle Clicker Game</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
       aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -46,6 +56,9 @@
         </li>
         <li class="nav-item">
           <a class="nav-link" href="about_us.html">About Us</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Don't Click</a>
         </li>
       </ul>
     </div>
@@ -101,7 +114,8 @@
       </div>
     </div>
   </div>
-  <div class="">
+
+  <div class="container-fluid" id="ref">
     <ul>
       <h2>References</h2>
       <li>Boootstrap, https://www.getbootstrap.com/</li>
